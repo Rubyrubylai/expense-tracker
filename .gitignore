@@ -1,0 +1,7 @@
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+node_modules
+package-lock.json
+*.log
+*.gz
