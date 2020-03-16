@@ -18,4 +18,4 @@ const expenseSchema = new Schema({
         require: true
     }
 })
-module.exports = mongoose.model('ExpenseTracker', expenseSchema)
+module.exports = mongoose.model('Record', expenseSchema)

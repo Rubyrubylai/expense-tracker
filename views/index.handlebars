@@ -15,17 +15,18 @@
     <font align="center" style="color:orange;" size="7" class="ml-2">25260</font>
 </div>
 <ul class="list-group">
+    {{#each records}}
     <li class="list-group-item">
         <div class="row">
             <div class="col-auto mr-auto">
                 <i class="fas fa-home"></i>
                 <div style="display:inline-block;">
-                    <span >午餐</span>
-                    <small>2019/04/23</small>
+                    <span >{{this.name}}</span>
+                    <small>{{this.date}}</small>
                 </div>     
             </div>
             <div class="col-auto">
-                60
+                {{this.amount}}
             </div>
             <div class="col-auto">
                 <a href="">修改</a>
@@ -33,6 +34,7 @@
             </div>
         </div> 
     </li>
+    {{/each}}
 </ul>
 <button type="button" class="btn btn-warning btn-lg btn-block mt-4">新增支出</button>
 
