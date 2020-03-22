@@ -16,6 +16,7 @@ db.once('open', ()=>{
     Record.create(
       {name:'name-'+i, 
       category:'category-'+i,
+      date: '2019/1/1',
       amount: i}
     )
   }

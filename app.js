@@ -3,6 +3,7 @@ const app = express()
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const Record = require('./models/record')
+const bodyParser = require('body-parser')
 
 mongoose.connect('mongodb://localhost/expenseTracker', {useNewUrlParser: true, useUnifiedTopology: true})
 
@@ -18,6 +19,7 @@ db.once('open', ()=>{
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
+app.use(bodyParser.urlencoded({extended: true}))
 
 
 // expense-tracker 首頁
@@ -26,11 +28,20 @@ app.get('/', (req, res) => {
 })
 // 進入新增花費的頁面
 app.get('/records/new', (req, res) => {
-    res.send('新增花費頁面')
+    return res.render('new')
 })
 // 新增一筆花費紀錄
 app.post('/records', (req, res) => {
-    res.send('新增花費')
+    const record = new Record({
+        name: req.body.name,
+        category: req.body.category,
+        date: req.body.date,
+        amount: req.body.amount
+    })
+    record.save(err => {
+        if (err) return console.error(err)
+        return res.redirect('/records')
+    })
 })
 // 瀏覽全部花費
 app.get('/records', (req, res) => {

@@ -1,0 +1,37 @@
+<form action="/records" method="POST">
+    <div class="form-group row">
+        <label for="inputName" class="col-sm-2 col-form-label"><small>*必填欄位</small></label>
+        <div class="col-sm-10">
+        <span>請輸入你的支出</span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputName" class="col-sm-2 col-form-label">名稱*</label>
+        <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputName" name="name">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputDate" class="col-sm-2 col-form-label">日期*</label>
+        <div class="col-sm-10">
+        <input type="date" class="form-control" id="inputDate" name="date">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputCategory" class="col-sm-2 col-form-label">類別*</label>
+        <select name="category">
+            <option value="home">家居物業</option>
+            <option value="traffic">交通出行</option>
+            <option value="entertainment">休閒娛樂</option>
+            <option value="food">餐飲食品</option>
+            <option value="others">其他</option>
+        </select>       
+    </div>
+    <div class="form-group row">
+        <label for="inputAmount" class="col-sm-2 col-form-label">金額*</label>
+        <div class="col-sm-10">
+        <input type="number" class="form-control" id="inputAmount" name="amount">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-warning btn-lg btn-block mt-4">新增支出</button>
+</form>
