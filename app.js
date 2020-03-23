@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const Record = require('./models/record')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 mongoose.connect('mongodb://localhost/expenseTracker', {useNewUrlParser: true, useUnifiedTopology: true})
 
@@ -20,6 +21,7 @@ db.once('open', ()=>{
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({extended: true}))
+app.use(methodOverride('_method'))
 
 
 // expense-tracker 首頁
@@ -57,12 +59,28 @@ app.get('/records/:id', (req, res) => {
     res.send('瀏覽特定花費詳情')
 })
 // 進入修改特定花費的頁面
-app.get('/records/:id/edit', (req, res) => {
-    res.send('修改特定花費的頁面')
+app.get('/records/:id/edit', (req, res) => { 
+    Record.findById(req.params.id)
+        .lean()
+        .exec((err, record) => {
+            if (err) return console.error(err)
+            return res.render('edit', {record: record})            
+        })
 })
 // 修改一筆花費紀錄
-app.put('/records/:id', (req, res) => {
-    res.send('修改花費')
+app.put('/records/:id/edit', (req, res) => {
+    Record.findById(req.params.id, (err, record) => {
+        if (err) return console.error(err)
+        record.name = req.body.name
+        record.category = req.body.category
+        record.date = req.body.date
+        record.amount = req.body.amount
+        record.save(err => {
+            if (err) return console.error(err)
+            return res.redirect('/')
+        })
+    })
+
 })
 // 刪除一筆花費紀錄
 app.delete('/records/:id', (req, res) => {
