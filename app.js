@@ -83,8 +83,14 @@ app.put('/records/:id/edit', (req, res) => {
 
 })
 // 刪除一筆花費紀錄
-app.delete('/records/:id', (req, res) => {
-    res.send('刪除花費')
+app.delete('/records/:id/delete', (req, res) => {
+    Record.findById(req.params.id, (err, record) => {
+        if (err) return console.error(err)
+        record.remove(err => {
+            if (err) return console.error(err)
+            return res.redirect('/')
+        })
+    })
 })
 
 app.listen('3000', () => {
