@@ -2,7 +2,7 @@
     <div class="col-md-6 m-auto">
         <div class="card card-body">
             <h1 class="text-center mb-3">Register</h1>
-            <form>  
+            <form action="/users/register" method="POST">  
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="string" name="name" class="form-control" id="name" placeholder="Enter Name">
@@ -12,8 +12,8 @@
                     <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter Email">
                 </div>
                 <div class="form-group">
-                    <label for="password1">Password</label>
-                    <input type="password" name="password1" class="form-control" id="password1" placeholder="Create Password">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Create Password">
                 </div>
                 <div class="form-group">
                     <label for="password2">Confirm Password</label>
