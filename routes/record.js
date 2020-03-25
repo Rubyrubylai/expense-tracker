@@ -1,13 +1,14 @@
 const express = require('express')
 const router = express.Router()
 const Record = require('../models/record')
+const {authenticated} = require('../config/auth')
 
 // 進入新增花費的頁面
-router.get('/new', (req, res) => {
+router.get('/new', authenticated, (req, res) => {
     return res.render('new')
 })
 // 新增一筆花費紀錄
-router.post('/', (req, res) => {
+router.post('/', authenticated, (req, res) => {
     const record = new Record({
         name: req.body.name,
         category: req.body.category,
@@ -20,7 +21,7 @@ router.post('/', (req, res) => {
     })
 })
 // 瀏覽全部花費
-router.get('/', (req, res) => {
+router.get('/', authenticated, (req, res) => {
     Record.find()
         .lean()
         .exec((err, records) => {
@@ -29,11 +30,11 @@ router.get('/', (req, res) => {
         })
 })
 // 瀏覽特定花費詳情
-router.get('/:id', (req, res) => {
+router.get('/:id', authenticated, (req, res) => {
     res.send('瀏覽特定花費詳情')
 })
 // 進入修改特定花費的頁面
-router.get('/:id/edit', (req, res) => { 
+router.get('/:id/edit', authenticated, (req, res) => { 
     Record.findById(req.params.id)
         .lean()
         .exec((err, record) => {
@@ -42,7 +43,7 @@ router.get('/:id/edit', (req, res) => {
         })
 })
 // 修改一筆花費紀錄
-router.put('/:id/edit', (req, res) => {
+router.put('/:id/edit', authenticated, (req, res) => {
     Record.findById(req.params.id, (err, record) => {
         if (err) return console.error(err)
         record.name = req.body.name
@@ -57,7 +58,7 @@ router.put('/:id/edit', (req, res) => {
 
 })
 // 刪除一筆花費紀錄
-router.delete('/:id/delete', (req, res) => {
+router.delete('/:id/delete', authenticated, (req, res) => {
     Record.findById(req.params.id, (err, record) => {
         if (err) return console.error(err)
         record.remove(err => {
