@@ -6,8 +6,11 @@ router.get('/login', (req, res) => {
     res.render('login')
 })
 
-router.post('/login', (req, res) => {
-    res.send('登入')
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/login'
+    })(req, res, next)
 })
 
 router.get('/register', (req, res) => {
