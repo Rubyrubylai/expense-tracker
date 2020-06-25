@@ -7,8 +7,9 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const session = require('express-session')
 const passport = require('passport')
+const Handlebars = require('handlebars')
 
-mongoose.connect('mongodb://localhost/expenseTracker', {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb://localhost/expenseTracker', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 
 const db = mongoose.connection
 
@@ -20,9 +21,9 @@ db.once('open', ()=>{
     console.log('mongodb connected!')
 })
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}))
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(session({
     secret: 'your secret key',
@@ -33,6 +34,16 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 require('./config/passport')(passport)
+
+Handlebars.registerHelper('ifEquals', (a, b, options) => {
+    if (a==b) {
+        return options.fn(this)
+    }
+    else {
+        return options.inverse(this)
+    }
+})
+
 app.use((req, res, next) => {
     res.locals.user = req.user
     res.locals.isAuthenticated = req.isAuthenticated()

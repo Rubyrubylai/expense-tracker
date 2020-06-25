@@ -12,14 +12,28 @@
 </div>
 <div class="mt-4">
     <p style="display:inline;">總金額:</p>
-    <font align="center" style="color:orange;" size="7" class="ml-2">25260</font>
+    <font align="center" style="color:orange;" size="7" class="ml-2">{{amount}}</font>
 </div>
 <ul class="list-group">
     {{#each records}}
     <li class="list-group-item">
         <div class="row">
             <div class="col-auto mr-auto">
+                {{#ifEquals this.category '家居物業'}}
                 <i class="fas fa-home"></i>
+                {{/ifEquals}}
+                {{#ifEquals this.category '交通出行'}}
+                <i class="fa fa-bus"></i>
+                {{/ifEquals}}
+                {{#ifEquals this.category '休閒娛樂'}}
+                <i class="fas fa-icons"></i>
+                {{/ifEquals}}
+                {{#ifEquals this.category '餐飲食品'}}
+                <i class="fas fa-hamburger"></i>
+                {{/ifEquals}}
+                {{#ifEquals this.category '其他'}}
+                <i class="fas fa-archive"></i>
+                {{/ifEquals}}
                 <div style="display:inline-block;">
                     <span >{{this.name}}</span>
                     <small>{{this.date}}</small>
@@ -29,9 +43,9 @@
                 {{this.amount}}
             </div>
             <div class="col-auto">
-                <a href="/records/{{{this._id}}}/edit">修改</a>
+                <a class="btn btn-primary" href="/records/{{{this._id}}}/edit">修改</a>              
                 <form action="/records/{{{this._id}}}/delete?_method=DELETE" method="POST" style="display: inline;">
-                    <button type="submit">刪除</button>
+                    <button class="btn btn-danger" type="submit">刪除</button>
                 </form>
             </div>
         </div> 
