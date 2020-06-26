@@ -1,8 +1,10 @@
-<div class="dropdown">
-    <button style="text-align:left" class="btn btn-outline-dark dropdown-toggle form-control" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    類別
+<div class="btn-group col-8">
+    <button class="btn btn-outline-dark col-11" style="text-align: left;" type="button">
+        類別
     </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+    </button>
+    <div class="dropdown-menu">
         <a class="dropdown-item" href="#">家居物業</a>
         <a class="dropdown-item" href="#">交通出行</a>
         <a class="dropdown-item" href="#">休閒娛樂</a>
@@ -10,48 +12,59 @@
         <a class="dropdown-item" href="#">其他</a>
     </div> 
 </div>
-<div class="mt-4">
+
+<div class="my-4 col-8">
     <p style="display:inline;">總金額:</p>
     <font align="center" style="color:orange;" size="7" class="ml-2">{{amount}}</font>
 </div>
-<ul class="list-group">
-    {{#each records}}
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col-auto mr-auto">
-                {{#ifEquals this.category '家居物業'}}
-                <i class="fas fa-home"></i>
-                {{/ifEquals}}
-                {{#ifEquals this.category '交通出行'}}
-                <i class="fa fa-bus"></i>
-                {{/ifEquals}}
-                {{#ifEquals this.category '休閒娛樂'}}
-                <i class="fas fa-icons"></i>
-                {{/ifEquals}}
-                {{#ifEquals this.category '餐飲食品'}}
-                <i class="fas fa-hamburger"></i>
-                {{/ifEquals}}
-                {{#ifEquals this.category '其他'}}
-                <i class="fas fa-archive"></i>
-                {{/ifEquals}}
-                <div style="display:inline-block;">
-                    <span >{{this.name}}</span>
-                    <small>{{this.date}}</small>
-                </div>     
-            </div>
-            <div class="col-auto">
-                {{this.amount}}
-            </div>
-            <div class="col-auto">
-                <a class="btn btn-primary" href="/records/{{{this._id}}}/edit">修改</a>              
-                <form action="/records/{{{this._id}}}/delete?_method=DELETE" method="POST" style="display: inline;">
-                    <button class="btn btn-danger" type="submit">刪除</button>
-                </form>
-            </div>
-        </div> 
-    </li>
-    {{/each}}
-</ul>
-<a href="/records/new" class="btn btn-warning btn-lg btn-block mt-4">新增支出</a>
+
+{{#each records}}
+<div class="row">      
+    <div class="col-8">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-auto">
+                    {{#ifEquals this.category '家居物業'}}
+                    <i class="fas fa-home"></i>
+                    {{/ifEquals}}
+                    {{#ifEquals this.category '交通出行'}}
+                    <i class="fa fa-bus"></i>
+                    {{/ifEquals}}
+                    {{#ifEquals this.category '休閒娛樂'}}
+                    <i class="fas fa-icons"></i>
+                    {{/ifEquals}}
+                    {{#ifEquals this.category '餐飲食品'}}
+                    <i class="fas fa-hamburger"></i>
+                    {{/ifEquals}}
+                    {{#ifEquals this.category '其他'}}
+                    <i class="fas fa-archive"></i>
+                    {{/ifEquals}}
+                    </div>
+                    <div class="col-auto mr-auto">
+                        <span>{{this.name}}</span>
+                        <div><small>{{this.date}}</small></div>                 
+                    </div>      
+                    <div class="col-auto">
+                        {{this.amount}}
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col-4">
+        <a class="btn btn-primary" href="/records/{{{this._id}}}/edit">修改</a>              
+        <form action="/records/{{{this._id}}}/delete?_method=DELETE" method="POST" style="display: inline;">
+            <button class="btn btn-danger" type="submit">刪除</button>
+        </form>
+    </div>
+</div> 
+{{/each}}
+
+<a href="/records/new" class="btn btn-warning btn-lg mt-4 col-8">新增支出</a>
+
+    
+
+
 
 
