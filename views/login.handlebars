@@ -1,19 +1,19 @@
 <div class="row mt-5">
     <div class="col-md-6 m-auto">
         <div class="card card-body">
-            <h1 class="text-center mb-3">Login</h1>
+            <h1 class="text-center mb-3">登入</h1>
             <form action="/users/login" method="POST">  
                 <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter Email">
+                    <label for="email">帳號</label>
+                    <input type="email" name="email" class="form-control" id="email" placeholder="輸入信箱">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password">
+                    <label for="password">密碼</label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="輸入密碼">
                 </div>
-                <button type="submit" class="btn btn-warning btn-block">Submit</button>
+                <button type="submit" class="btn btn-warning btn-block mt-4">送出</button>
                 <p class="lead mt-4">
-                    No Account? <a href="/users/register">Register</a>
+                    沒有帳號嗎? <a href="/users/register">註冊</a>
                 </p>    
             </form>
         </div>
