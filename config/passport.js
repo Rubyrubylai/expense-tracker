@@ -26,7 +26,6 @@ module.exports = passport => {
     },
     (accessToken, refreshToken, profile, done) => {
         User.findOne({ email: profile._json.email}).then(user => {
-            console.log(profile)
             if (!user) {
                 var randomPassword = Math.random().toString(36).slice(-8)
                 bcrypt.genSalt(10, (err, salt) => {

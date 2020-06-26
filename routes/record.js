@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Record = require('../models/record')
 const { authenticated } = require('../config/auth')
+const user = require('../models/user')
 
 // 進入新增花費的頁面
 router.get('/new', authenticated, (req, res) => {
@@ -34,6 +35,17 @@ router.get('/', authenticated, (req, res) => {
             return res.render('index', { records: records, amount: amount })
         })
 })
+
+//篩選類別
+router.get('/filter', authenticated, (req, res) => {
+    Record.find({ category: req.query.category, userId: req.user._id })
+        .lean()
+        .exec((err, records) => {
+            if (err) return console.error(err)
+            return res.render('index', { records: records })
+        })
+})
+
 // 瀏覽特定花費詳情
 router.get('/:id', authenticated, (req, res) => {
     res.send('瀏覽特定花費詳情')
@@ -72,6 +84,8 @@ router.delete('/:id/delete', authenticated, (req, res) => {
         })
     })
 })
+
+
 
 module.exports = router
 

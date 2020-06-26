@@ -1,17 +1,19 @@
-<div class="btn-group col-8">
-    <button class="btn btn-outline-dark col-11" style="text-align: left;" type="button">
+<form action="/records/filter" method="GET">
+<div class="btn-group col-8">   
+    <button class="btn btn-outline-dark col-11" style="text-align: left;">
         類別
-    </button>
-    <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+    </button>  
+    <button class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
     </button>
     <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">家居物業</a>
-        <a class="dropdown-item" href="#">交通出行</a>
-        <a class="dropdown-item" href="#">休閒娛樂</a>
-        <a class="dropdown-item" href="#">餐飲食品</a>
-        <a class="dropdown-item" href="#">其他</a>
+        <button type="submit" class="dropdown-item" name="category" value="家居物業">家居物業</button>
+        <button type="submit" class="dropdown-item" name="category" value="交通出行">交通出行</button>
+        <button type="submit" class="dropdown-item" name="category" value="休閒娛樂">休閒娛樂</button>
+        <button type="submit" class="dropdown-item" name="category" value="餐飲食品">餐飲食品</button>
+        <button type="submit" class="dropdown-item" name="category" value="其他">其他</button>
     </div> 
 </div>
+</form>
 
 <div class="my-4 col-8">
     <p style="display:inline;">總金額:</p>
