@@ -53,7 +53,7 @@ app.use((req, res, next) => {
 app.use('/', require('./routes/home'))
 app.use('/records', require('./routes/record'))
 app.use('/users', require('./routes/user'))
-
+app.use('/auth', require('./routes/auth'))
 
 app.listen('3000', () => {
     console.log('app is listening!')
