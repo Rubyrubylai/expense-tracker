@@ -38,6 +38,10 @@ require('./config/passport')(passport)
 
 app.use(flash())
 
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+}
+
 Handlebars.registerHelper('ifEquals', (a, b, options) => {
     if (a==b) {
         return options.fn(this)
