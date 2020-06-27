@@ -8,6 +8,7 @@ const methodOverride = require('method-override')
 const session = require('express-session')
 const passport = require('passport')
 const Handlebars = require('handlebars')
+const flash = require('connect-flash')
 
 mongoose.connect('mongodb://localhost/expenseTracker', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 
@@ -35,6 +36,8 @@ app.use(passport.session())
 
 require('./config/passport')(passport)
 
+app.use(flash())
+
 Handlebars.registerHelper('ifEquals', (a, b, options) => {
     if (a==b) {
         return options.fn(this)
@@ -47,6 +50,8 @@ Handlebars.registerHelper('ifEquals', (a, b, options) => {
 app.use((req, res, next) => {
     res.locals.user = req.user
     res.locals.isAuthenticated = req.isAuthenticated()
+    res.locals.warning_msg = req.flash('warning_msg')
+    res.locals.success_msg = req.flash('success_msg')
     next()
 })
 

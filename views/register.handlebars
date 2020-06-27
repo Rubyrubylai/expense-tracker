@@ -1,25 +1,26 @@
 <div class="row mt-5">
-    <div class="col-md-6 m-auto">
+    <div class="col-sm-8 m-auto">
         <div class="card card-body">
             <h1 class="text-center mb-3">註冊</h1>
             <form action="/users/register" method="POST">  
                 <div class="form-group">
                     <label for="name">姓名</label>
-                    <input type="string" name="name" class="form-control" id="name" placeholder="輸入姓名">
+                    <input type="string" name="name" class="form-control" id="name" placeholder="輸入姓名" value="{{{name}}}">
                 </div>
                 <div class="form-group">
                     <label for="email">帳號</label>
-                    <input type="email" name="email" class="form-control" id="email" placeholder="輸入信箱">
+                    <input type="email" name="email" class="form-control" id="email" placeholder="輸入信箱" value="{{{email}}}">
                 </div>
                 <div class="form-group">
                     <label for="password">密碼</label>
-                    <input type="password" name="password" class="form-control" id="password" placeholder="輸入密碼">
+                    <input type="password" name="password" class="form-control" id="password" placeholder="輸入密碼" value="{{{password}}}">
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-4">
                     <label for="password2">確認密碼</label>
-                    <input type="password" name="password2" class="form-control" id="password2" placeholder="確認密碼">
+                    <input type="password" name="password2" class="form-control" id="password2" placeholder="確認密碼" value="{{{password2}}}">
                 </div>
-                <button type="submit" class="btn btn-warning btn-block mt-4">註冊</button>
+                {{> messages}}
+                <button type="submit" class="btn btn-warning btn-block btn-lg">註冊</button>
                 <p class="lead mt-4">
                     已經有帳號了嗎? <a href="/users/login">登入</a>
                 </p>    

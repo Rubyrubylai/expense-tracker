@@ -8,20 +8,29 @@ const user = require('../models/user')
 router.get('/new', authenticated, (req, res) => {
     return res.render('new')
 })
+
 // 新增一筆花費紀錄
 router.post('/', authenticated, (req, res) => {
-    const record = new Record({
-        name: req.body.name,
-        category: req.body.category,
-        date: req.body.date,
-        amount: req.body.amount,
-        userId: req.user._id
-    })
-    record.save(err => {
-        if (err) return console.error(err)
-        return res.redirect('/')
-    })
+    const { name, category, date, amount } = req.body 
+    let errors = []
+    if (!name || !date || !category || !amount){
+        errors.push({ message: '所有欄位皆為必填' })
+        return res.render('new', { errors: errors, name, category, date, amount })
+    } else {
+        const record = new Record({
+            name,
+            category,
+            date,
+            amount,
+            userId: req.user._id
+        })
+        record.save(err => {
+            if (err) return console.error(err)
+            return res.redirect('/')
+        })
+    }   
 })
+
 // 瀏覽全部花費
 router.get('/', authenticated, (req, res) => {
     Record.find({ userId: req.user._id })
@@ -41,15 +50,15 @@ router.get('/filter', authenticated, (req, res) => {
     Record.find({ category: req.query.category, userId: req.user._id })
         .lean()
         .exec((err, records) => {
+            let amount = 0
+            for (let record of records) {              
+                amount += record.amount                
+            }
             if (err) return console.error(err)
-            return res.render('index', { records: records })
+            return res.render('index', { records: records, amount: amount })
         })
 })
 
-// 瀏覽特定花費詳情
-router.get('/:id', authenticated, (req, res) => {
-    res.send('瀏覽特定花費詳情')
-})
 // 進入修改特定花費的頁面
 router.get('/:id/edit', authenticated, (req, res) => { 
     Record.findOne({ _id: req.params.id, userId: req.user._id })
@@ -59,21 +68,29 @@ router.get('/:id/edit', authenticated, (req, res) => {
             return res.render('edit', { record: record })            
         })
 })
+
 // 修改一筆花費紀錄
 router.put('/:id/edit', authenticated, (req, res) => {
     Record.findOne({ _id: req.params.id, userId: req.user._id }, (err, record) => {
-        if (err) return console.error(err)
-        record.name = req.body.name
-        record.category = req.body.category
-        record.date = req.body.date
-        record.amount = req.body.amount
-        record.save(err => {
-            if (err) return console.error(err)
-            return res.redirect('/')
-        })
+        const { name, category, date, amount } = req.body
+        let errors = [] 
+        record.name = name
+        record.category = category
+        record.date = date
+        record.amount = amount
+        if (!name || !category || !date || !amount){
+            errors.push({ message: '所有欄位皆為必填' })
+            return res.render('edit', { errors: errors, record: { name, category, date, amount } })
+        } else {
+            record.save(err => {
+                if (err) return console.error(err)
+                return res.redirect('/')          
+            })  
+        }             
     })
 
 })
+
 // 刪除一筆花費紀錄
 router.delete('/:id/delete', authenticated, (req, res) => {
     Record.findOne({ _id: req.params.id, userId: req.user._id }, (err, record) => {
@@ -84,8 +101,6 @@ router.delete('/:id/delete', authenticated, (req, res) => {
         })
     })
 })
-
-
 
 module.exports = router
 

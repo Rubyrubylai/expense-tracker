@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Record = require('../record')
 
-mongoose.connect('mongodb://localhost/expenseTracker', {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb://localhost/expenseTracker', { useNewUrlParser: true, useUnifiedTopology: true })
 
 const db = mongoose.connection
 
@@ -14,10 +14,10 @@ db.once('open', ()=>{
 
   for(var i=0; i<10; i++){
     Record.create(
-      {name:'name-'+i, 
-      category:'category-'+i,
+      { name:'name-' + i, 
+      category:'category-' + i,
       date: '2019/1/1',
-      amount: i}
+      amount: i }
     )
   }
   console.log('done')

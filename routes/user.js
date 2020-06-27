@@ -21,16 +21,27 @@ router.get('/register', (req, res) => {
 
 router.post('/register', (req, res) => {
     const { name, email, password, password2} = req.body
-    User.findOne({ email: email}).then(user => {
+    User.findOne({ email: email }).then(user => {
+        let errors = []
         if (user) {
-            console.log('User already exist')
+            errors.push({ message: '此用戶已經存在' })
+        } 
+        if (password !== password2) {
+            errors.push({ message: '兩次密碼輸入不同' })
+        }
+        if (!name || !email || !password || !password2) {
+            errors.push({ message: '所有欄位皆為必填' })
+        }
+        if (errors.length > 0) {
             res.render('register', {
                 name,
                 email,
                 password,
-                password2
+                password2,
+                errors
             })
-        } else {
+        }
+        else {
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(password, salt, (err, hash) => {
                     const newUser = new User({
@@ -53,7 +64,8 @@ router.post('/register', (req, res) => {
 
 router.get('/logout', (req, res) => {
     req.logout()
-    res.redirect('/users/login')
+    req.flash('success_msg', '您已成功登出')
+    return res.redirect('/users/login')
 })
 
 module.exports = router
