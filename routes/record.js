@@ -3,6 +3,7 @@ const router = express.Router()
 const Record = require('../models/record')
 const { authenticated } = require('../config/auth')
 const user = require('../models/user')
+const dateFormat = require('../config/dateFormat')
 
 // 進入新增花費的頁面
 router.get('/new', authenticated, (req, res) => {
@@ -31,6 +32,7 @@ router.post('/', authenticated, (req, res) => {
     }   
 })
 
+
 // 瀏覽全部花費
 router.get('/', authenticated, (req, res) => {
     Record.find({ userId: req.user._id })
@@ -40,13 +42,14 @@ router.get('/', authenticated, (req, res) => {
             for (let record of records) {              
                 amount += record.amount                
             }
+            dateFormat(records)                    
             if (err) return console.error(err)
             return res.render('index', { records: records, amount: amount })
         })
 })
 
 //篩選類別
-router.get('/filter', authenticated, (req, res) => {
+router.get('/category', authenticated, (req, res) => {
     Record.find({ category: req.query.category, userId: req.user._id })
         .lean()
         .exec((err, records) => {
@@ -54,8 +57,27 @@ router.get('/filter', authenticated, (req, res) => {
             for (let record of records) {              
                 amount += record.amount                
             }
+            dateFormat(records)
             if (err) return console.error(err)
             return res.render('index', { records: records, amount: amount })
+        })
+})
+
+//篩選月份
+router.get('/month', authenticated, (req, res) => {
+    Record.find({ userId: req.user._id })
+        .lean()
+        .exec((err, records) => {        
+            var records = records.filter(record => {
+                return record.date.getMonth() === req.query.month-1     
+            })
+            let amount = 0
+            for (let record of records) {              
+                amount += record.amount                
+            }
+            dateFormat(records)
+            if (err) return console.error(err)
+                return res.render('index', { records: records, amount: amount })           
         })
 })
 

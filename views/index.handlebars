@@ -1,6 +1,21 @@
-<form action="/records/filter" method="GET">
-<div class="btn-group col-8">   
-    <button class="btn btn-outline-dark col-11" style="text-align: left;">
+<div class="row">
+<form action="/records/month" method="GET">
+<div class="btn-group col">   
+    <button class="btn btn-outline-dark" style="text-align: left;">
+        月份
+    </button>  
+    <button class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+    </button>
+    <div class="dropdown-menu">
+        {{#times 12}}
+        <button type="submit" class="dropdown-item" name="month" value="{{this}}">{{this}}</button>
+        {{/times}} 
+    </div> 
+</div>
+</form>
+<form action="/records/category" method="GET">
+<div class="btn-group col">   
+    <button class="btn btn-outline-dark" style="text-align: left;">
         類別
     </button>  
     <button class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
@@ -14,6 +29,7 @@
     </div> 
 </div>
 </form>
+</div>
 
 <div class="my-4 col-8">
     <p style="display:inline;">總金額:</p>
