@@ -9,6 +9,9 @@ const session = require('express-session')
 const passport = require('passport')
 const Handlebars = require('handlebars')
 const flash = require('connect-flash')
+if (process.env.NODE_ENV !== 'production') { 
+    require('dotenv').config()
+}
 
 mongoose.connect('mongodb://localhost/expenseTracker', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 
@@ -37,10 +40,6 @@ app.use(passport.session())
 require('./config/passport')(passport)
 
 app.use(flash())
-
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config()
-}
 
 Handlebars.registerHelper('ifEquals', (a, b, options) => {
     if (a==b) {
