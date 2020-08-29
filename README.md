@@ -1,6 +1,13 @@
 # 家庭記帳本
 使用者可以新增、刪除、過濾及查看支出和收入的紀錄資訊，是管理財務的好幫手
 
++ 測試帳戶
+
+|姓名|信箱|帳號|
+|----|---|----|
+|Cindy|cindy@gmail.com|123456|
+|Jessie|jessie@gmail.com"|123456|
+
 ![image](https://github.com/Rubyrubylai/expense-tracker-sequelize/blob/master/expense-tracker.PNG)
 
 ## 環境
