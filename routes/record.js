@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const Record = require('../models/record')
 const { authenticated } = require('../config/auth')
-const user = require('../models/user')
 const dateFormat = require('../config/dateFormat')
 
 // 進入新增花費的頁面
@@ -31,7 +30,6 @@ router.post('/', authenticated, (req, res) => {
         })
     }   
 })
-
 
 // 瀏覽全部花費
 router.get('/', authenticated, (req, res) => {
@@ -86,6 +84,7 @@ router.get('/:id/edit', authenticated, (req, res) => {
     Record.findOne({ _id: req.params.id, userId: req.user._id })
         .lean()
         .exec((err, record) => {
+            console.log(record.date)
             if (err) return console.error(err)
             return res.render('edit', { record: record })            
         })

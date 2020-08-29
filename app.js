@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
-const Record = require('./models/record')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const session = require('express-session')
@@ -17,13 +16,15 @@ mongoose.connect('mongodb://localhost/expenseTracker', { useNewUrlParser: true, 
 
 const db = mongoose.connection
 
-db.on('error', ()=>{
+db.on('error', () => {
     console.log('mongodb error!')
 })
 
-db.once('open', ()=>{
+db.once('open', () => {
     console.log('mongodb connected!')
 })
+
+app.use(express.static('public'))
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')

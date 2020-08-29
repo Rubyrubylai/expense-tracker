@@ -30,6 +30,7 @@ db.once('open', ()=>{
             Record.create({
               name: record.name,
               category: record.category,
+              type: record.type,
               date: record.date,
               amount: record.amount,
               userId: user._id

@@ -1,0 +1,17 @@
+@media screen and (min-width: 768px) {
+  .container{
+    width: 75%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .container{
+    width: 50%;
+  }
+}
+
+#add-circle {
+  position: fixed;
+  right: 1em;
+  bottom: 2em;
+}
