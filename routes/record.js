@@ -45,7 +45,7 @@ router.post('/new', authenticated, (req, res) => {
             if (err) return console.error(err)
             let success = []
             success.push({ message: '已成功新增' })  
-            const { name, category, date, amount, sort } = record
+            const { name, category, date, amount, sort, _id } = record
             //將新增的record顯示於畫面上，不能直接records.push(record)進去
             let records = [
                 {
@@ -54,7 +54,8 @@ router.post('/new', authenticated, (req, res) => {
                     sort: sort,
                     date: date.toLocaleDateString(),
                     amount: amount,
-                    userId: req.user._id
+                    userId: req.user._id,
+                    _id: _id
                 }
             ]
 

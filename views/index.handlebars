@@ -56,6 +56,7 @@
     {{>messages}}
 </div>
 
+<div class="record-container">
 {{#each records}}
 <div class="row">
     <div class="col-8">
@@ -74,8 +75,8 @@
                 {{#ifEquals this.category "餐飲食品"}}
                 <i class="fas fa-utensils fa-2x" style="color:#e08840;"></i>
                 {{/ifEquals}}
-                {{#ifEquals this.category "其他"}}
-                <i class="fas fa-pen fa-2x" {{#ifEquals sort "expense"}} style="color:#e08840;" {{/ifEquals}}></i>
+                {{#ifEquals this.category "其他支出"}}
+                <i class="fas fa-pen fa-2x" style="color:#e08840;"></i>
                 {{/ifEquals}}
                 {{#ifEquals this.category "薪水"}}
                 <i class="fas fa-money-check-alt fa-2x" style="color:#32ceb9;"></i>
@@ -85,6 +86,9 @@
                 {{/ifEquals}}
                 {{#ifEquals this.category "紅利"}}
                 <i class="fas fa-gift fa-2x" style="color:#32ceb9;"></i>
+                {{/ifEquals}}
+                {{#ifEquals this.category "其他收入"}}
+                <i class="fas fa-pen fa-2x" style="color:#32ceb9;"></i>
                 {{/ifEquals}}
                 
             </div>
@@ -103,7 +107,7 @@
     </div>
 </div>
 {{/each}}
-
+</div>
 
 <div id="add-circle">
     <button type="submit" class="rounded-circle btn-warning btn-lg" data-toggle="modal" data-target="#add-modal">

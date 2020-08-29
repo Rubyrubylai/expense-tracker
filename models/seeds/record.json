@@ -28,7 +28,7 @@
 },
 {
     "name": "獎金",
-    "category": "其他",
+    "category": "其他收入",
     "date": "2020-06-01",
     "amount": 21000,
     "sort": "income"
