@@ -95,6 +95,7 @@ router.put('/:id/edit', authenticated, (req, res) => {
         } else {
             record.save(err => {
                 if (err) return console.error(err)
+                req.flash('success_msg', `${record.date.toLocaleDateString()}${record.name} 成功編輯`)
                 return res.redirect('/')          
             })  
         }             
@@ -108,6 +109,7 @@ router.delete('/:id/delete', authenticated, (req, res) => {
         if (err) return console.error(err)
         record.remove(err => {
             if (err) return console.error(err)
+            req.flash('warning_msg', `${record.date.toLocaleDateString()}${record.name} 成功刪除`)
             return res.redirect('/')
         })
     })
