@@ -120,10 +120,14 @@
         <div class="modal-body" id="show-movie-body">
             <div class="row">
                 <div class="col">
-                    <center><a href="/incomes/new" class="btn btn-outline-success btn-lg" style="width: 200px">收入</a></center>
+                    <form action="/records/new" method="GET">
+                    <center><button type="submit" name="sort" value="income" class="btn btn-outline-success btn-lg" style="width: 200px">收入</button></center>
+                    </form>
                 </div>
                 <div class="col">
-                    <center><a href="/records/new" class="btn btn-outline-danger btn-lg" style="width: 200px">支出</a></center>
+                    <form action="/records/new" method="GET">
+                    <center><button type="submit" name="sort" value="expense" class="btn btn-outline-danger btn-lg" style="width: 200px">支出</button></center>
+                    </form>
                 </div>
             </div>                     
         </div>

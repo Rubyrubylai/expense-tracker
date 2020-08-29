@@ -6,20 +6,37 @@ const dateFormat = require('../config/dateFormat')
 
 // 進入新增花費的頁面
 router.get('/new', authenticated, (req, res) => {
-    return res.render('new')
+    let income
+    let expense
+    if (req.query.sort === 'income') {
+        income = true
+    }
+    if (req.query.sort === 'expense') {
+        expense = true
+    }
+    return res.render('new', { income, expense })
 })
 
 // 新增一筆花費紀錄
-router.post('/', authenticated, (req, res) => {
-    const { name, category, date, amount } = req.body 
+router.post('/new', authenticated, (req, res) => {
+    const { name, category, date, amount, sort } = req.body 
     let errors = []
     if (!name || !date || !category || !amount){
+        let income
+        let expense 
+        if (req.body.sort === 'income') {
+            income = true
+        }
+        if (req.body.sort === 'expense') {
+            expense = true
+        }
         errors.push({ message: '所有欄位皆為必填' })
-        return res.render('new', { errors: errors, name, category, date, amount })
+        return res.render('new', { errors: errors, name, category, date, amount, income, expense })
     } else {
         const record = new Record({
             name,
             category,
+            sort,
             date,
             amount,
             userId: req.user._id
@@ -29,21 +46,6 @@ router.post('/', authenticated, (req, res) => {
             return res.redirect('/')
         })
     }   
-})
-
-// 瀏覽全部花費
-router.get('/', authenticated, (req, res) => {
-    Record.find({ userId: req.user._id })
-        .lean()
-        .exec((err, records) => {
-            let amount = 0
-            for (let record of records) {              
-                amount += record.amount                
-            }
-            dateFormat(records)                    
-            if (err) return console.error(err)
-            return res.render('index', { records: records, amount: amount })
-        })
 })
 
 //篩選類別

@@ -1,47 +1,57 @@
-<form action="/records" method="POST" class="col-8">
-    <div class="form-group row mb-4">
-        <label for="inputName" class="col-sm-3 col-form-label"><small>*必填欄位</small></label>
-        <div class="col-sm-9">
-        <center><h3>請輸入你的支出</h3></center>
+<div class="form">
+    <form action="/records/new" method="POST">
+    {{#if expense}}
+    <center style="font-size: 30px;">新增支出</center>
+    {{/if}}
+    {{#if income}}
+    <center style="font-size: 30px;">新增收入</center>
+    {{/if}}
+        <div class="row my-4">
+            <div class="col-2"><label for="name">名稱*:</label></div>
+            <div class="col-10">
+                <input type="text" class="form-control" id="name" name="name" value="{{name}}">
+            </div>
         </div>
-    </div>
-    <div class="form-group row mb-4">
-        <label for="inputName" class="col-sm-3 col-form-label">名稱*:</label>
-        <div class="col-sm-9">
-        <input type="text" class="form-control" id="inputName" name="name" value="{{{name}}}">
+        <div class="row my-4">
+            <div class="col-2"><label for="date">日期*:</label></div>
+            <div class="col-10">
+                <input type="date" class="form-control" id="date" name="date" value="{{date}}">
+            </div>
         </div>
-    </div>
-    <div class="form-group row mb-4">
-        <label for="inputDate" class="col-sm-3 col-form-label">日期*:</label>
-        <div class="col-sm-9">
-        <input type="date" class="form-control" id="inputDate" name="date" value="{{{date}}}">
+        <div class="row my-4">
+            <div class="col-2"><label for="category">類別*:</label></div>
+            <div class="col-10">
+                <select class="form-control" id="category" name="category">
+                    {{#if expense}}
+                    <option {{#ifEquals category '家居物業'}} selected {{/ifEquals}}>家居物業</option>
+                    <option {{#ifEquals category '交通出行'}} selected {{/ifEquals}}>交通出行</option>
+                    <option {{#ifEquals category '休閒娛樂'}} selected {{/ifEquals}}>休閒娛樂</option>
+                    <option {{#ifEquals category '餐飲食品'}} selected {{/ifEquals}}>餐飲食品</option>
+                    <option {{#ifEquals category '其他'}} selected {{/ifEquals}}>其他</option>
+                    {{/if}}
+                    {{#if income}}   
+                    <option value="薪水" {{#ifEquals category "薪水"}} selected {{/ifEquals}}>薪水</option>
+                    <option value="獎金" {{#ifEquals category "獎金"}} selected {{/ifEquals}}>獎金</option>
+                    <option value="紅利" {{#ifEquals category "紅利"}} selected {{/ifEquals}}>紅利</option>
+                    <option value="其他" {{#ifEquals category "其他"}} selected {{/ifEquals}}>其他</option>
+                    {{/if}}   
+                </select>
+            </div>
         </div>
-    </div>
-    <div class="form-group row mb-4">
-        <label for="inputCategory" class="col-sm-3 col-form-label">類別*:</label>
-        <div class="col-sm-9">
-        <select name="category" class="form-control">
-        <option>請選擇...</option>    
-            <option value="家居物業" {{#ifEquals category "家居物業"}}selected{{/ifEquals}}>家居物業</option>
-            <option value="交通出行" {{#ifEquals category "交通出行"}}selected{{/ifEquals}}>交通出行</option>
-            <option value="休閒娛樂" {{#ifEquals category "休閒娛樂"}}selected{{/ifEquals}}>休閒娛樂</option>
-            <option value="餐飲食品" {{#ifEquals category "餐飲食品"}}selected{{/ifEquals}}>餐飲食品</option>
-            <option value="其他" {{#ifEquals category "其他"}}selected{{/ifEquals}}>其他</option>
-        </select>   
-        </div>    
-    </div>
-    <div class="form-group row mb-4">
-        <label for="inputAmount" class="col-sm-3 col-form-label">金額*:</label>
-        <div class="col-sm-9">
-        <input type="number" class="form-control" id="inputAmount" name="amount" value="{{{amount}}}">
+        <div class="row my-4">
+            <div class="col-2"><label for="amount">金額*:</label></div>
+            <div class="col-10">
+                <input type="number" class="form-control" id="amount" name="amount" value="{{amount}}">
+            </div>
         </div>
-    </div>
-    {{> messages}}
-    <div class="form-group row mb-4">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-9">
-        <button type="submit" class="btn btn-warning btn-lg btn-block">新增支出</button>
+        <div>
+        {{>messages}}
         </div>
-    </div>
-</form>
-
+        {{#if expense}}
+        <center><button type="submit" name="sort" value="expense" class="btn btn-warning btn-lg" style="width: 200px">送出</button></center>
+        {{/if}}
+        {{#if income}}
+        <center><button type="submit" name="sort" value="income" class="btn btn-warning btn-lg" style="width: 200px">送出</button></center>
+        {{/if}}
+    </form>
+</div>
