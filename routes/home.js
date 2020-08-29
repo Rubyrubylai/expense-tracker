@@ -10,23 +10,31 @@ router.get('/', authenticated, (req, res) => {
     Record.find({ userId: req.user._id })
         .lean()
         .exec((err, records) => {
+                       
+            let month = []
+            for (i=1; i<=12 ; i++) {
+                month.push(i)
+            }
+
             //篩選類別
             if (req.query.category) {
                 records = records.filter(records => {
                     return records.category === req.query.category
                 })
             }
-
             //篩選月份
-            let month = []
-            for (i=1; i<=12 ; i++) {
-                month.push(i)
-            }
-            if (req.query.month) {
+            else if (req.query.month) {
                 records = records.filter(records => {
                     return records.date.getMonth() === req.query.month-1
                 })
             }
+            else {
+                //篩選為今天日期
+                records = records.filter(record => {
+                    return record.date.toLocaleDateString() === new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' })
+                })
+            }
+            
            
             let incomeAmount = 0
             let expenseAmount = 0
