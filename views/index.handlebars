@@ -55,8 +55,9 @@
 {{#each records}}
 <div class="row">
     <div class="col-8">
-        <div class="row" style="background-color:#f8bcbc;">
+        <div class="row" {{#ifEquals this.sort "expense"}} style="background-color:#f8bcbc;" {{/ifEquals}} {{#ifEquals this.sort "income"}} style="background-color:#b4eb94;" {{/ifEquals}}>
             <div class="col-2 my-3">
+          
                 {{#ifEquals this.category "家居物業"}}
                 <i class="fas fa-home fa-2x" style="color:#e08840;"></i>
                 {{/ifEquals}}
@@ -70,7 +71,7 @@
                 <i class="fas fa-utensils fa-2x" style="color:#e08840;"></i>
                 {{/ifEquals}}
                 {{#ifEquals this.category "其他"}}
-                <i class="fas fa-pen fa-2x" style="color:#e08840;"></i>
+                <i class="fas fa-pen fa-2x" {{#ifEquals sort "expense"}} style="color:#e08840;" {{/ifEquals}}></i>
                 {{/ifEquals}}
                 {{#ifEquals this.category "薪水"}}
                 <i class="fas fa-money-check-alt fa-2x" style="color:#32ceb9;"></i>
@@ -81,9 +82,7 @@
                 {{#ifEquals this.category "紅利"}}
                 <i class="fas fa-gift fa-2x" style="color:#32ceb9;"></i>
                 {{/ifEquals}}
-                {{#ifEquals this.category "其他"}}
-                <i class="fas fa-pen fa-2x" style="color:#32ceb9;"></i>
-                {{/ifEquals}}
+                
             </div>
             <div class="col-auto mr-auto my-auto">
                 <span>{{this.name}}<span>
@@ -93,8 +92,8 @@
         </div>
     </div>
     <div class="col-4 my-auto"> 
-            <a href="/records/{{this.id}}/edit" class="btn btn-primary">修改</a>
-            <form action="/records/{{this.id}}/delete?_method=DELETE" method="POST" style="display: inline;">
+            <a href="/records/{{this._id}}/edit" class="btn btn-primary">修改</a>
+            <form action="/records/{{this._id}}/delete?_method=DELETE" method="POST" style="display: inline;">
                 <button type="submit" class="btn btn-danger">刪除</button>
             </form>
     </div>

@@ -43,7 +43,7 @@ require('./config/passport')(passport)
 app.use(flash())
 
 Handlebars.registerHelper('ifEquals', (a, b, options) => {
-    if (a==b) {
+    if (a===b) {
         return options.fn(this)
     }
     else {

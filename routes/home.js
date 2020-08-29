@@ -1,17 +1,16 @@
 const express = require('express')
 const router = express.Router()
 const { authenticated } = require('../config/auth')
-const record = require('../models/record')
+const Record = require('../models/record')
+const dateFormat = require('../config/dateFormat')
 
 // expense-tracker 首頁
 router.get('/', authenticated, (req, res) => {
-    record.find({ userId: req.user._id })
+    Record.find({ userId: req.user._id })
         .lean()
         .exec((err, records) => {
-            console.log(records)
-            let income = true
-            let expense = true
-            res.render('index', { records, income, expense })
+            dateFormat(records)
+            res.render('index', { records })
         })
    
 })

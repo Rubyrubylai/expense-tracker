@@ -5,7 +5,7 @@ const recordSchema = new Schema({
         type: String,
         required: true
     },
-    type: {
+    sort: {
         type: String,
         required: true
     },
