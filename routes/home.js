@@ -3,6 +3,7 @@ const router = express.Router()
 const { authenticated } = require('../config/auth')
 const Record = require('../models/record')
 const dateFormat = require('../config/dateFormat')
+const record = require('../models/record')
 
 // expense-tracker 首頁
 router.get('/', authenticated, (req, res) => {
@@ -26,9 +27,25 @@ router.get('/', authenticated, (req, res) => {
                     return records.date.getMonth() === req.query.month-1
                 })
             }
-            
+           
+            let incomeAmount = 0
+            let expenseAmount = 0
+            records.forEach(record => {
+                //總收入
+                if (record.sort === 'income') {
+                    incomeAmount += record.amount
+                }
+                //總支出
+                if (record.sort === 'expense') {
+                    expenseAmount += record.amount
+                }
+            })
+
+            //總金額
+            let totalAmount = incomeAmount - expenseAmount
+
             dateFormat(records)
-            res.render('index', { records, month })
+            res.render('index', { records, month, incomeAmount, expenseAmount, totalAmount })
         })
    
 })
