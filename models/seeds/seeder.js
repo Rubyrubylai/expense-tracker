@@ -4,9 +4,11 @@ const User = require('../user')
 const userSeed = require('./user.json')
 const recordSeed = require('./record.json')
 const bcrypt = require('bcrypt')
+if (process.env.NODE_ENV !== 'production') { 
+  require('dotenv').config()
+}
 
-mongoose.set('useCreateIndex', true)
-mongoose.connect('mongodb://localhost/expenseTracker', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB_URI ||' mongodb://localhost/expenseTracker', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 
 const db = mongoose.connection
 

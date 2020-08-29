@@ -1,16 +1,11 @@
 const LocalStrategy = require('passport-local').Strategy
 const FacebookStrategy = require('passport-facebook').Strategy
-const mongoose = require('mongoose')
 const User = require('../models/user')
 const bcrypt = require('bcrypt')
 
 module.exports = passport => {
-    passport.use(new LocalStrategy({ usernameField: 'email', passReqToCallback: true }, (req, email, password, done) => {
-        if (!email || !password) {
-            return done(null, false, req.flash('warning_msg', '請輸入帳號密碼'))
-        }
-        
-        User.findOne({ email: email }).then(user => {
+    passport.use(new LocalStrategy({ usernameField: 'email', passReqToCallback: true }, (req, email, password, done) => {      
+        User.findOne({ email: email }).then(user => { 
             if (!user) { 
                 return done(null, false, req.flash('warning_msg', '此用戶不存在'))
             }
@@ -18,7 +13,7 @@ module.exports = passport => {
                 if(isMatch){
                     return done(null, user)
                 } else {
-                    return done(null, false, {message: '密碼錯誤'})
+                    return done(null, false, req.flash('warning_msg', '密碼輸入錯誤'))
                 }                                 
             })
 

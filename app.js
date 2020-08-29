@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
 }
 
-mongoose.connect('mongodb://localhost/expenseTracker', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 
 const db = mongoose.connection
 
@@ -31,7 +31,7 @@ app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(session({
-    secret: 'your secret key',
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true,
 }))
@@ -72,6 +72,6 @@ app.use('/records', require('./routes/record'))
 app.use('/users', require('./routes/user'))
 app.use('/auth', require('./routes/auth'))
 
-app.listen('3000', () => {
+app.listen(process.env.PORT, () => {
     console.log('app is listening!')
 })
