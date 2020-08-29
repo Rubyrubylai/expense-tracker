@@ -51,13 +51,13 @@ Handlebars.registerHelper('ifEquals', (a, b, options) => {
     }
 })
 
-Handlebars.registerHelper('times', (n, results) => {
-    var month = ''
-    for (var i=1; i<=n; i++){
-        month += results.fn(i)
-    }
-    return month
-})
+// Handlebars.registerHelper('times', (n, results) => {
+//     var month = ''
+//     for (var i=1; i<=n; i++){
+//         month += results.fn(i)
+//     }
+//     return month
+// })
 
 app.use((req, res, next) => {
     res.locals.user = req.user

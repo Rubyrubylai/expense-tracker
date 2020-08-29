@@ -5,9 +5,9 @@
                 月份
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                {{#times}}
-                <button type="submit" class="dropdown-item" name="month" value="{{month}}">{{month}}月</button>
-                {{/times}}
+                {{#each month}}
+                <button type="submit" class="dropdown-item" name="month" value="{{this}}">{{this}}月</button>
+                {{/each}}
             </div>
         </form>
     </div>

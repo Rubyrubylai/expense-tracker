@@ -16,9 +16,19 @@ router.get('/', authenticated, (req, res) => {
                 })
             }
 
+            //篩選月份
+            let month = []
+            for (i=1; i<=12 ; i++) {
+                month.push(i)
+            }
+            if (req.query.month) {
+                records = records.filter(records => {
+                    return records.date.getMonth() === req.query.month-1
+                })
+            }
             
             dateFormat(records)
-            res.render('index', { records })
+            res.render('index', { records, month })
         })
    
 })
