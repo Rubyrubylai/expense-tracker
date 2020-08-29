@@ -10,8 +10,43 @@
   }
 }
 
-#add-circle {
+.nav li a:hover, .nav li a:focus{
+  color: black;
+}
+
+.nav li {
+  display: inline-block;
+  color: black;
+}
+
+.nav li a{
+  color: rgb(163, 163, 163);
+  text-decoration: none;
+}
+
+.form{
+  margin-top: 40px;
+  background-color: rgb(233, 235, 162);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+#add-circle{
   position: fixed;
-  right: 1em;
+  right: 2em;
   bottom: 2em;
+}
+
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -2px;
+}
+
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
 }

@@ -9,6 +9,14 @@ router.get('/', authenticated, (req, res) => {
     Record.find({ userId: req.user._id })
         .lean()
         .exec((err, records) => {
+            //篩選類別
+            if (req.query.category) {
+                records = records.filter(records => {
+                    return records.category === req.query.category
+                })
+            }
+
+            
             dateFormat(records)
             res.render('index', { records })
         })

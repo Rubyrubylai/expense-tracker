@@ -48,39 +48,6 @@ router.post('/new', authenticated, (req, res) => {
     }   
 })
 
-//篩選類別
-router.get('/category', authenticated, (req, res) => {
-    Record.find({ category: req.query.category, userId: req.user._id })
-        .lean()
-        .exec((err, records) => {
-            let amount = 0
-            for (let record of records) {              
-                amount += record.amount                
-            }
-            dateFormat(records)
-            if (err) return console.error(err)
-            return res.render('index', { records: records, amount: amount })
-        })
-})
-
-//篩選月份
-router.get('/month', authenticated, (req, res) => {
-    Record.find({ userId: req.user._id })
-        .lean()
-        .exec((err, records) => {        
-            var records = records.filter(record => {
-                return record.date.getMonth() === req.query.month-1     
-            })
-            let amount = 0
-            for (let record of records) {              
-                amount += record.amount                
-            }
-            dateFormat(records)
-            if (err) return console.error(err)
-                return res.render('index', { records: records, amount: amount })           
-        })
-})
-
 // 進入修改特定花費的頁面
 router.get('/:id/edit', authenticated, (req, res) => { 
     Record.findOne({ _id: req.params.id, userId: req.user._id })
