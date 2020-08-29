@@ -10,14 +10,25 @@ router.get('/', authenticated, (req, res) => {
     Record.find({ userId: req.user._id })
         .lean()
         .exec((err, records) => {
-                       
+            //月份          
             let month = []
             for (i=1; i<=12 ; i++) {
                 month.push(i)
             }
 
+            //篩選收入
+            if (req.query.sort === 'income') {
+                records = records.filter(records => {
+                    return records.sort === req.query.sort
+                })
+            }
+            else if (req.query.sort === 'expense') {
+                records = records.filter(records => {
+                    return records.sort === req.query.sort
+                })
+            }
             //篩選類別
-            if (req.query.category) {
+            else if (req.query.category) {
                 records = records.filter(records => {
                     return records.category === req.query.category
                 })
@@ -35,7 +46,6 @@ router.get('/', authenticated, (req, res) => {
                 })
             }
             
-           
             let incomeAmount = 0
             let expenseAmount = 0
             records.forEach(record => {
