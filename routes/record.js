@@ -87,23 +87,44 @@ router.get('/:id/edit', authenticated, (req, res) => {
         .lean()
         .exec((err, record) => {
             if (err) return console.error(err)
+            let income
+            let expense
+            if (record.sort === 'income') {
+                income = true
+            }
+            if (record.sort === 'expense') {
+                expense = true
+            }
             record.date = record.date.toISOString().slice(0, 10) 
-            return res.render('edit', { record })            
+            return res.render('edit', { record, income, expense })            
         })
 })
 
 // 修改一筆花費紀錄
 router.put('/:id/edit', authenticated, (req, res) => {
     Record.findOne({ _id: req.params.id, userId: req.user._id }, (err, record) => {
+        //判斷支出或收入，並傳入前端，在錯誤訊息時才能正確顯示編輯收入或支出
+        let income
+        let expense
+        if (record.sort === 'income') {
+            income = true
+        }
+        if (record.sort === 'expense') {
+            expense = true
+        }
+        //將_id傳入前端，重複按鈕送出時，才能知道是哪個/:_id路由
+        const _id = req.params.id
+
         const { name, category, date, amount } = req.body
         let errors = [] 
         record.name = name
         record.category = category
         record.date = date
         record.amount = amount
+
         if (!name || !category || !date || !amount){
             errors.push({ message: '所有欄位皆為必填' })
-            return res.render('edit', { errors, record })
+            return res.render('edit', { errors, record: { name, category, date, amount, _id }, income, expense })
         } else {
             record.save(err => {
                 if (err) return console.error(err)

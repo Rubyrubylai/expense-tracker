@@ -1,12 +1,11 @@
 <div class="form">
-    
     <form action="/records/{{record._id}}/edit?_method=PUT" method="POST">
-    {{#ifEquals record.sort "expense"}}
+    {{#if expense}}
     <center style="font-size: 30px;">修改支出</center>
-    {{/ifEquals}}
-    {{#ifEquals record.sort "income"}}
+    {{/if}}
+    {{#if income}}
     <center style="font-size: 30px;">修改收入</center>
-    {{/ifEquals}}     
+    {{/if}}     
         <div class="row my-4">
             <div class="col-2"><label for="name">名稱*:</label></div>
             <div class="col-10">
@@ -23,19 +22,19 @@
             <div class="col-2"><label for="category">類別*:</label></div>
             <div class="col-10">
                 <select class="form-control" id="category" name="category">
-                    {{#ifEquals record.sort "expense"}}
+                    {{#if expense}}
                     <option {{#ifEquals record.category '家居物業'}} selected {{/ifEquals}}>家居物業</option>
                     <option {{#ifEquals record.category '交通出行'}} selected {{/ifEquals}}>交通出行</option>
                     <option {{#ifEquals record.category '休閒娛樂'}} selected {{/ifEquals}}>休閒娛樂</option>
                     <option {{#ifEquals record.category '餐飲食品'}} selected {{/ifEquals}}>餐飲食品</option>
                     <option {{#ifEquals record.category '其他'}} selected {{/ifEquals}}>其他</option>
-                    {{/ifEquals}}
-                    {{#ifEquals record.sort "income"}} 
+                    {{/if}}
+                    {{#if income}}
                     <option value="薪水" {{#ifEquals record.category "薪水"}} selected {{/ifEquals}}>薪水</option>
                     <option value="獎金" {{#ifEquals record.category "獎金"}} selected {{/ifEquals}}>獎金</option>
                     <option value="紅利" {{#ifEquals record.category "紅利"}} selected {{/ifEquals}}>紅利</option>
                     <option value="其他" {{#ifEquals record.category "其他"}} selected {{/ifEquals}}>其他</option>
-                    {{/ifEquals}}  
+                    {{/if}}  
                 </select>
             </div>
         </div>
@@ -45,7 +44,9 @@
                 <input type="number" class="form-control" id="amount" name="amount" value="{{record.amount}}">
             </div>
         </div>
+        <div>
         {{>messages}}
+        </div>
         <center><button type="submit" class="btn btn-warning btn-lg" style="width: 200px">送出</button></center>
     </form>
 </div>
