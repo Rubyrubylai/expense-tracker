@@ -8,7 +8,7 @@
 |Cindy|cindy@gmail.com|123456|
 |Jessie|jessie@gmail.com|123456|
 
-![image](https://github.com/Rubyrubylai/expense-tracker-sequelize/blob/master/expense-tracker.PNG)
+![image](https://github.com/Rubyrubylai/expense-tracker/blob/master/restraurant.PNG)
 
 ## 環境
 + Node.js v10.15.0
