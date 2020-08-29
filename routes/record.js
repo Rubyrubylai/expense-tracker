@@ -43,7 +43,68 @@ router.post('/new', authenticated, (req, res) => {
         })
         record.save(err => {
             if (err) return console.error(err)
-            return res.redirect('/')
+            let success = []
+            success.push({ message: '已成功新增' })  
+            const { name, category, date, amount, sort } = record
+            //將新增的record顯示於畫面上，不能直接records.push(record)進去
+            let records = [
+                {
+                    name: name,
+                    category: category,
+                    sort: sort,
+                    date: date.toLocaleDateString(),
+                    amount: amount,
+                    userId: req.user._id
+                }
+            ]
+
+            //月份          
+            let month = []
+            for (i=1; i<=12 ; i++) {
+                month.push(i)
+            }
+
+             //篩選收入
+            if (req.query.sort === 'income') {
+                records = records.filter(records => {
+                    return records.sort === req.query.sort
+                })
+            }
+            else if (req.query.sort === 'expense') {
+                records = records.filter(records => {
+                    return records.sort === req.query.sort
+                })
+            }
+            //篩選類別
+            else if (req.query.category) {
+                records = records.filter(records => {
+                    return records.category === req.query.category
+                })
+            }
+            //篩選月份
+            else if (req.query.month) {
+                records = records.filter(records => {
+                    return records.date.getMonth() === req.query.month-1
+                })
+            }
+            
+            let incomeAmount = 0
+            let expenseAmount = 0
+            records.forEach(record => {
+                //總收入
+                if (record.sort === 'income') {
+                    incomeAmount += record.amount
+                }
+                //總支出
+                if (record.sort === 'expense') {
+                    expenseAmount += record.amount
+                }
+            })
+
+            //總金額
+            let totalAmount = incomeAmount - expenseAmount
+
+            return res.render('index', { records, success, month, incomeAmount, expenseAmount, totalAmount })
         })
     }   
 })

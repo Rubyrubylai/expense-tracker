@@ -8,7 +8,7 @@
 {{/if}}
 
 {{#if success_msg}}
-<div class="alert alert-success alert-dismissible fade show" role="alert">
+<div class="alert alert-info alert-dismissible fade show" role="alert">
     {{success_msg}}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -17,12 +17,23 @@
 {{/if}}
 
 {{#if errors}}
-{{#each errors}}
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-    {{this.message}}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div
-{{/each}}
+    {{#each errors}}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{this.message}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {{/each}}
+{{/if}}
+
+{{#if success}}
+    {{#each success}}
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        {{this.message}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {{/each}}
 {{/if}}
