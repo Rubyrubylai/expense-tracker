@@ -3,33 +3,38 @@
     "category": "休閒娛樂",
     "date": "2020-06-11",
     "amount": 2000,
-    "sort": "expense"
+    "sort": "expense",
+    "merchant": "亞潮"
 },
 {
     "name": "公車",
     "category": "交通出行",
     "date": "2020-06-15",
     "amount": 10,
-    "sort": "expense"
+    "sort": "expense",
+    "merchant": "307"
 },
 {
-    "name": "西堤",
+    "name": "牛排",
     "category": "餐飲食品",
     "date": "2020-06-11",
     "amount": 500,
-    "sort": "expense"
+    "sort": "expense",
+    "merchant": "西堤"
 },
 {
     "name": "沐浴乳",
     "category": "家居物業",
     "date": "2020-06-01",
     "amount": 500,
-    "sort": "expense"
+    "sort": "expense",
+    "merchant": "澎澎"
 },
 {
     "name": "獎金",
     "category": "其他收入",
     "date": "2020-06-01",
     "amount": 21000,
-    "sort": "income"
+    "sort": "income",
+    "merchant": "公司"
 }]

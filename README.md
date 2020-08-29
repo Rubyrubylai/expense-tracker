@@ -6,7 +6,7 @@
 |姓名|信箱|帳號|
 |----|---|----|
 |Cindy|cindy@gmail.com|123456|
-|Jessie|jessie@gmail.com"|123456|
+|Jessie|jessie@gmail.com|123456|
 
 ![image](https://github.com/Rubyrubylai/expense-tracker-sequelize/blob/master/expense-tracker.PNG)
 
@@ -58,7 +58,7 @@ npm run dev
 |----|---|----|
 |首頁|/|查看當天的收入及支出，並從月份及類別選單篩選要查看的資料|
 |新增|/records/new|點選右下角的加號，新增收入或支出|
-|編輯|/records/:id/edit|點選編輯按鈕，編輯收入或支出的名稱、日期、類別及金額|
+|編輯|/records/:id/edit|點選編輯按鈕，編輯收入或支出的名稱、日期、商家、類別及金額|
 
 + 使用者功能
 

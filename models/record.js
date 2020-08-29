@@ -26,6 +26,10 @@ const recordSchema = new Schema({
         ref: 'User',
         index: true,
         required: true    
+    },
+    merchant: {
+        type: String,
+        required: true
     }
 })
 module.exports = mongoose.model('Record', recordSchema)

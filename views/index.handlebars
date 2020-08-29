@@ -62,7 +62,6 @@
     <div class="col-8">
         <div class="row" {{#ifEquals this.sort "expense"}} style="background-color:#f8bcbc;" {{/ifEquals}} {{#ifEquals this.sort "income"}} style="background-color:#b4eb94;" {{/ifEquals}}>
             <div class="col-2 my-3">
-          
                 {{#ifEquals this.category "家居物業"}}
                 <i class="fas fa-home fa-2x" style="color:#e08840;"></i>
                 {{/ifEquals}}
@@ -92,10 +91,11 @@
                 {{/ifEquals}}
                 
             </div>
-            <div class="col-auto mr-auto my-auto">
+            <div class="col-auto mr-2 my-auto">
                 <span>{{this.name}}<span>
                 <div><small>{{this.date}}</small></div> 
             </div>
+            <div class="col-auto mr-auto my-auto">{{this.merchant}}</div>
             <div class="col-auto my-auto">{{this.amount}}</div>
         </div>
     </div>

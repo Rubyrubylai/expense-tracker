@@ -19,9 +19,9 @@ router.get('/new', authenticated, (req, res) => {
 
 // 新增一筆花費紀錄
 router.post('/new', authenticated, (req, res) => {
-    const { name, category, date, amount, sort } = req.body 
+    const { name, category, date, amount, sort, merchant } = req.body 
     let errors = []
-    if (!name || !date || !category || !amount){
+    if (!name || !date || !category || !amount || !merchant){
         let income
         let expense 
         if (req.body.sort === 'income') {
@@ -31,7 +31,7 @@ router.post('/new', authenticated, (req, res) => {
             expense = true
         }
         errors.push({ message: '所有欄位皆為必填' })
-        return res.render('new', { errors: errors, name, category, date, amount, income, expense })
+        return res.render('new', { errors, name, category, date, amount, income, expense, merchant })
     } else {
         const record = new Record({
             name,
@@ -39,13 +39,14 @@ router.post('/new', authenticated, (req, res) => {
             sort,
             date,
             amount,
-            userId: req.user._id
+            userId: req.user._id,
+            merchant
         })
         record.save(err => {
             if (err) return console.error(err)
             let success = []
             success.push({ message: '已成功新增' })  
-            const { name, category, date, amount, sort, _id } = record
+            const { name, category, date, amount, sort, _id, merchant } = record
             //將新增的record顯示於畫面上，不能直接records.push(record)進去
             let records = [
                 {
@@ -55,7 +56,8 @@ router.post('/new', authenticated, (req, res) => {
                     date: date.toLocaleDateString(),
                     amount: amount,
                     userId: req.user._id,
-                    _id: _id
+                    _id: _id,
+                    merchant: merchant
                 }
             ]
 
@@ -144,16 +146,17 @@ router.put('/:id/edit', authenticated, (req, res) => {
         //將_id傳入前端，重複按鈕送出時，才能知道是哪個/:_id路由
         const _id = req.params.id
 
-        const { name, category, date, amount } = req.body
+        const { name, category, date, amount, merchant } = req.body
         let errors = [] 
         record.name = name
         record.category = category
         record.date = date
         record.amount = amount
+        record.merchant = merchant
 
         if (!name || !category || !date || !amount){
             errors.push({ message: '所有欄位皆為必填' })
-            return res.render('edit', { errors, record: { name, category, date, amount, _id }, income, expense })
+            return res.render('edit', { errors, record: { name, category, date, amount, _id, merchant }, income, expense })
         } else {
             record.save(err => {
                 if (err) return console.error(err)

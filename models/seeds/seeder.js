@@ -35,7 +35,8 @@ db.once('open', ()=>{
               sort: record.sort,
               date: record.date,
               amount: record.amount,
-              userId: user._id
+              userId: user._id,
+              merchant: record.merchant
             })
           })
         }).catch(err => console.error(err))
