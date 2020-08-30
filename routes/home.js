@@ -9,6 +9,11 @@ router.get('/', authenticated, (req, res) => {
     Record.find({ userId: req.user._id })
         .lean()
         .exec((err, records) => {
+            //日期由大到小排序
+            records.sort((a, b) => {
+                return a.date - b.date
+            })
+
             //月份          
             let month = []
             for (i=1; i<=12 ; i++) {
