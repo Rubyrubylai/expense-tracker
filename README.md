@@ -1,6 +1,6 @@
 # 家庭記帳本
-使用者可以新增、刪除、過濾及查看支出和收入的紀錄資訊，是管理財務的好幫手
-[點此進入網頁]https://mysterious-ocean-91118.herokuapp.com/
+使用者可以新增、刪除、過濾及查看支出和收入的紀錄資訊，是管理財務的好幫手  
+[點此進入](https://mysterious-ocean-91118.herokuapp.com/)
 
 ![image](https://github.com/Rubyrubylai/expense-tracker/blob/master/restraurant.PNG)
 
